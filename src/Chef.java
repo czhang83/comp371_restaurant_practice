@@ -25,6 +25,7 @@ public class Chef {
         Dish cooked = this.orders.get(0);
         this.orders.remove(0);
         this.cooked.add(cooked);
+        System.out.println("Chef cooked " + cooked.get_name());
     }
 
     //return all the cooked dish
@@ -32,6 +33,7 @@ public class Chef {
     public ArrayList<Dish> give_robot(){
         ArrayList<Dish> give = this.cooked;
         this.cooked = new ArrayList<>();
+        System.out.println("Chef give dishes to the robot");
         return give;
     }
 }

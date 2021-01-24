@@ -13,17 +13,16 @@ public class Robot {
     private ArrayList<Customer> customers_deliver_dish = new ArrayList<>();
 
     private HashMap<Customer, ArrayList<Dish>> waiting_dishes = new HashMap<>();
-    public Robot(){
-
-    }
 
     public void new_customer(Customer customer){
         this.customers_take_order.add(customer);
+        System.out.println("Greating " + customer.get_name());
     }
 
     public void take_order(Customer customer){
         this.customers_take_order.remove(customer);
         this.customers_deliver_order.add(customer);
+        System.out.println("Took order from " + customer.get_name());
     }
 
     //send orders of a customer to a chef
@@ -34,6 +33,7 @@ public class Robot {
         ArrayList<Dish> customer_order = new ArrayList<>(customer.get_order());
         this.waiting_dishes.put(customer, customer_order); //need to make a copy of the order list
         chef.take_order(customer.get_order());
+        System.out.println("Deliver " + customer.get_name() + "'s order to the chef");
     }
 
     public void deliver_dish(ArrayList<Dish> dishes){
@@ -41,10 +41,11 @@ public class Robot {
             for (Customer customer: waiting_dishes.keySet()){
                 if(waiting_dishes.get(customer).contains(dish)){
                     //give the dish to this customer
+                    System.out.println("delivered " + dish.get_name() + " to " + customer.get_name());
                     //remove the dish from waiting list
                     waiting_dishes.get(customer).remove(dish);
+                    break;
                 }
-                break;
             };
             // if a customer have all dishes order, remove from waiting list
             waiting_dishes.entrySet().removeIf(entry -> entry.getValue().isEmpty());
@@ -56,6 +57,7 @@ public class Robot {
         for (Dish dish: customer.get_order()){
             price = price + dish.get_price();
         }
+        System.out.println("Give check to " + customer.get_name());
         return price;
     }
 }
